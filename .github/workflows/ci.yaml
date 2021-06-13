@@ -38,4 +38,4 @@ jobs:
       - name: connect-rng
         run: docker network connect network-rng worker-test
       - name: logs
-        run: while true ; do sleep 10 && docker container logs php-test 2>& 1 | grep 'Development Server (http://0.0.0.0:8080) started' && break ; done
+        run: while true ; do sleep 10 && docker container logs worker-test && docker container logs worker-test 2>& 1 | grep 'Coin found' && break ; done
