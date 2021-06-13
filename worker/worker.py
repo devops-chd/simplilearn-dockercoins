@@ -1,6 +1,6 @@
 import logging
 import os
-import redis
+from redis import redis
 import requests
 import time
 
