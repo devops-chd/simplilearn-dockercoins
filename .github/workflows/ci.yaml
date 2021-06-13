@@ -37,5 +37,7 @@ jobs:
         run: docker network connect hasher-network worker-test
       - name: connect-rng
         run: docker network connect rng-network worker-test
+      - name: connect-redis
+        run: docker network connect redis-network worker-test
       - name: logs
         run: while true ; do sleep 10 && docker container logs worker-test && docker container logs worker-test 2>& 1 | grep 'Coin found' && break ; done
