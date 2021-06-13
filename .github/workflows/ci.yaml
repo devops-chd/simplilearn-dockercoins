@@ -1,0 +1,31 @@
+name: ci
+on:
+  push:
+    branches:
+      - 2021-06
+jobs:
+  Dockerfile:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: build-hasher
+        run: docker image build --file Dockerfile --tag index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-hasher ${PWD}/hasher
+      - name: build-rng
+        run: docker image build --file Dockerfile --tag index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-rng ${PWD}/rng
+      - name: build-webui
+        run: docker image build --file Dockerfile --tag index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-webui ${PWD}/webui
+      - name: build-worker
+        run: docker image build --file Dockerfile --tag index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-worker ${PWD}/worker
+      - name: network-hasher
+        run: docker network create hasher-network
+      - name: network-redis
+        run: docker network create redis-network
+      - name: network-rng
+        run: docker network create rng-network
+      - name: run-redis
+        run: docker container run --detach --entrypoint docker-entrypoint.sh --name redis-test --network redis-network --volume redis-volume:/data --workdir /data redis:alpine redis-server
+      - name: run-redis
+        run: docker container run --detach --entrypoint docker-entrypoint.sh --name redis-test --network redis-network --volume redis-volume:/data --workdir /data redis:alpine redis-server
+      - name: logs
+        run: while true ; do sleep 10 && docker container logs php-test 2>& 1 | grep 'Development Server (http://0.0.0.0:8080) started' && break ; done
