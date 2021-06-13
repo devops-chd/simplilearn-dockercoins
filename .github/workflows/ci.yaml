@@ -40,6 +40,6 @@ jobs:
       - name: connect-rng
         run: docker network connect rng-network worker-test
       - name: connect-redis
-        run: docker network connect redis-network worker-test
+        run: docker network connect worker-network redis-test
       - name: logs
         run: while true ; do sleep 10 && docker container logs worker-test && docker container logs worker-test 2>& 1 | grep 'Coin found' && break ; done
