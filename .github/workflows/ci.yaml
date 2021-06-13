@@ -25,7 +25,17 @@ jobs:
         run: docker network create rng-network
       - name: run-redis
         run: docker container run --detach --entrypoint docker-entrypoint.sh --name redis-test --network redis-network --volume redis-volume:/data --workdir /data redis:alpine redis-server
-      - name: run-redis
-        run: docker container run --detach --entrypoint docker-entrypoint.sh --name redis-test --network redis-network --volume redis-volume:/data --workdir /data redis:alpine redis-server
+      - name: run-hasher
+        run: docker container run --detach --entrypoint ruby --name hasher-test --network hasher-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-hasher hasher.rb
+      - name: run-rng
+        run: docker container run --detach --entrypoint python --name rng-test --network rng-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-rng rng.py
+      - name: run-webui
+        run: docker container run --detach --entrypoint node --name webui-test --network redis-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-webui webui.js
+      - name: run-worker
+        run: docker container run --detach --entrypoint python --name worker-test --network redis-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-worker worker.py
+      - name: connect-hasher
+        run: docker network connect network-hasher worker-test
+      - name: connect-rng
+        run: docker network connect network-rng worker-test
       - name: logs
         run: while true ; do sleep 10 && docker container logs php-test 2>& 1 | grep 'Development Server (http://0.0.0.0:8080) started' && break ; done
