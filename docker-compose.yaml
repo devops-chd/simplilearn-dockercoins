@@ -17,7 +17,7 @@ services:
      - node.role == worker
    replicas: 2
   entrypoint: ruby
-  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-hasher
+  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.1-hasher
   networks:
    - hasher-network
   working_dir: /src/
@@ -45,7 +45,7 @@ services:
      - node.role == worker
    replicas: 2
   entrypoint: python
-  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-rng
+  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.1-rng
   networks:
    - rng-network
   working_dir: /src
@@ -58,7 +58,7 @@ services:
      - node.role == worker
    replicas: 2
   entrypoint: node
-  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-webui
+  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.1-webui
   networks:
    - redis-network
   ports:
@@ -72,7 +72,7 @@ services:
      - node.role == worker
    replicas: 2
   entrypoint: python
-  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-worker
+  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.1-worker
   networks:
    - hasher-network
    - rng-network
