@@ -23,8 +23,6 @@ jobs:
         run: docker network create redis-network
       - name: network-rng
         run: docker network create rng-network
-      - name: network-worker
-        run: docker network create worker-network
       - name: run-redis
         run: docker container run --detach --entrypoint docker-entrypoint.sh --name redis --network redis-network --volume redis-volume:/data --workdir /data redis:alpine redis-server
       - name: run-hasher
@@ -34,12 +32,10 @@ jobs:
       - name: run-webui
         run: docker container run --detach --entrypoint node --name webui --network redis-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-webui webui.js
       - name: run-worker
-        run: docker container run --detach --entrypoint python --name worker --network worker-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-worker worker.py
+        run: docker container run --detach --entrypoint python --name worker --network redis-network --workdir /src index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:test-worker worker.py
       - name: connect-hasher
         run: docker network connect hasher-network worker
       - name: connect-rng
         run: docker network connect rng-network worker
-      - name: connect-redis
-        run: docker network connect worker-network redis
       - name: logs
         run: while true ; do sleep 10 && docker container logs worker && docker container logs worker 2>& 1 | grep 'Coin found' && break ; done
