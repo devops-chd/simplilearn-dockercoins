@@ -5,8 +5,6 @@ networks:
   internal: true
  rng-network:
   internal: true
- worker-network:
-  internal: true
 services:
  hasher:
   command: hasher.rb
@@ -77,7 +75,6 @@ services:
    - hasher-network
    - rng-network
    - redis-network
-   - worker-network
   working_dir: /src
 version: '3.8'
 volumes:
