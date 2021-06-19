@@ -71,14 +71,14 @@ services:
     constraints:
      - node.role == worker
    replicas: 2
-   entrypoint: python
-   image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-worker
-   networks:
-    - hasher-network
-    - rng-network
-    - redis-network
-    - worker-network
-   working_dir: /src
+  entrypoint: python
+  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-worker
+  networks:
+   - hasher-network
+   - rng-network
+   - redis-network
+   - worker-network
+  working_dir: /src
 version: '3.8'
 volumes:
  redis-volume:
