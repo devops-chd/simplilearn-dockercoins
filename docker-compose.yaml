@@ -31,7 +31,8 @@ services:
    replicas: 1
   entrypoint: docker-entrypoint.sh
   image: redis :alpine
-  networks: redis-network
+  networks: 
+   - redis-network
   volume:
    - redis-volume:/data
   working_dir: /data
