@@ -33,7 +33,7 @@ services:
   image: redis :alpine
   networks: 
    - redis-network
-  volume:
+  volumes:
    - redis-volume:/data
   working_dir: /data
  rng:
