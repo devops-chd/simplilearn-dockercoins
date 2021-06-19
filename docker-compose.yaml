@@ -57,11 +57,11 @@ services:
      - node.role == worker
    replicas: 2
   entrypoint: node
-   image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-webui
-   networks:
-    - redis-network
-   ports:
-    - 80:80
+  image: index.docker.io/devopssignity/simplilearn-dockercoins-2021-06:1.0-webui
+  networks:
+   - redis-network
+  ports:
+   - 80:80
  worker:
   command: worker.py
   deploy:
