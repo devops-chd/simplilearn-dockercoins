@@ -30,7 +30,7 @@ services:
      - node.role == worker
    replicas: 1
   entrypoint: docker-entrypoint.sh
-  image: redis :alpine
+  image: redis:alpine
   networks: 
    - redis-network
   volumes:
