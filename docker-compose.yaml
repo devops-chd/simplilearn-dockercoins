@@ -8,8 +8,8 @@ networks:
  worker-network:
   internal: true
 services:
- command: hasher.rb
  hasher:
+  command: hasher.rb
   deploy:
    mode: replicated
    placement:
