@@ -78,6 +78,7 @@ services:
     - rng-network
     - redis-network
     - worker-network
+   working_dir: /src
 version: '3.8'
 volumes:
  redis-volume:
